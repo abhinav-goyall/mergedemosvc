@@ -1,0 +1,15 @@
+version: '2'
+services:
+  mergedemosvc-app:
+    image: mergedemosvc
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,swagger
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - SPRING_COUCHBASE_BOOTSTRAP_HOSTS=mergedemosvc-couchbase
+      - SPRING_COUCHBASE_BUCKET_NAME=mergedemosvc
+      - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
+  mergedemosvc-couchbase:
+    extends:
+      file: couchbase.yml
+      service: mergedemosvc-couchbase
